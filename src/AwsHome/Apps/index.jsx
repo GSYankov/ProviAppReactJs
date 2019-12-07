@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import styles from './styles.module.css';
 import Table from './Table';
 import Search from './Search';
-import Region from './UidApp/Region';
-import Services from './UidApp/Services'
-import EC2 from './UidApp/EC2'
+import Region from './Region';
+import Services from './Services'
+import EC2 from './Services/EC2'
 import postService from '../../services/post-service';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -33,12 +33,12 @@ class Apps extends Component {
         const { viewApps } = this.state;
         return <div>
             <p>Select Application:</p>
+            <a class="btn btn-primary btn-lg btn-block btn-cola" href='/aws/select-organization'>Create New Application</a>
             <Search func={this.handleChange} search={this.state.search} />
             <Table apps={viewApps} />
             <Route path='/aws/home/:appid' component={Region} />
-            <Route path='/aws/home/:appid/:env' component={Region} />
-            <Services />
-            <EC2 />
+            <Route path='/aws/home/:appid/:env' component={Services} />
+            <Route path='/aws/home/:appid/:env/ec2' component={EC2} />
         </div>
     }
 }

@@ -2,12 +2,12 @@ import React from 'react';
 import styles from './styles.module.css';
 
 
-const Services = () => {
-
+const Services = (props) => {
+    const { match: { params } } = props;
 
     return (<div className="col-lg-2 main">
 
-        <p className="app">Select Application:</p>
+        <p className="app">Select Service:</p>
         <hr />
 
         <div className="row">
@@ -26,7 +26,7 @@ const Services = () => {
                             hidden=""></span>KMS</button><button type="button"
                                 className="btn btn-primary btn-lg btn-block btn-cola" id="ec2"><span id="ec2"
                                     className="fa fa-link fa-lg cola-fa" hidden=""></span>
-                        EC2
+                       <a href={`/aws/home/${params.appid}/${params.env}/ec2`}> EC2</a>
                 <span className="serv badge badge-pill float-right badge-success"> </span></button>
 
 

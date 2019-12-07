@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.css';
-import postService from '../../../../services/post-service';
+import postService from '../../../services/post-service';
 
 
 const Region = (props) => {
@@ -39,9 +39,9 @@ const Region = (props) => {
                     <span className="indent"></span>
                     <span className="indent"></span>
                     <div className="fa fa-angle-right rotate"></div>
-                    <span>
+
                         <div className="fa fa-folder-open ic-w mx-1"> Test</div>
-            </span>
+
                 </li>:''}
 
                 {app[0].env =='dev'?
@@ -49,9 +49,7 @@ const Region = (props) => {
                     <span className="indent"></span>
                     <span className="indent"></span>
                     <div className="fa fa-angle-right rotate"></div>
-                    <a>
-                        <div className="fa fa-folder-open ic-w mx-1"> Dev</div>
-            </a>
+                        <a className="fa fa-folder-open ic-w mx-1" href={`/aws/home/${params.appid}/dev`}> Dev</a>
                 </li>:''}
 
             </ul>

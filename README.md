@@ -1,4 +1,4 @@
-# CeleraChemie-React.js-Project
+# KO ProviApp.js-Project
 KO Ltd. company web site. Build as web project for the ReactJS fundamentals course at SoftUni.
 
 KO is an international company, dealing with bavarages world-wide. The company operates sales and logistic offices in on six continents including Sofia and multy-language service

@@ -10,6 +10,8 @@ import Login from '../Login';
 import Logout from '../Logout';
 import NotFound from '../NotFound';
 import AwsHome from '../AwsHome/'
+import SelectOrg from '../AwsHome/Apps/SelectOrg'
+import Create from '../AwsHome/Apps/Create'
 import userService from '../services/user-service';
 
 
@@ -63,6 +65,8 @@ class App extends React.Component {
           {isLogged && <Route path="/account/logout" render={render('Logout', Logout, { isLogged, logout: this.logout })} />}
           <Route path='/account/signup' render={render('Sign Up', SignUp)} />
           <Route path='/aws/home' render={render('AWS', AwsHome)} />
+          <Route path='/aws/select-organization' exact render={render('Select Organization', SelectOrg)} />
+          <Route path='/aws/new/:org' exact render={render('Create application', Create)} />
 
           {/*404 Page Not Found. Keep always last*/}
           <Route render={render('Page Not Found!', NotFound)} />

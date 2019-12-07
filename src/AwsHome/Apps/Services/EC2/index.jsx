@@ -2,7 +2,10 @@ import React from 'react';
 import styles from './styles.module.css';
 
 
-const EC2 = () => {
+const EC2 = (props) => {
+
+    const { match: { params } } = props;
+
 
     return(<div className="col-lg-5">
         <p className="select-app">Select Application:</p>
