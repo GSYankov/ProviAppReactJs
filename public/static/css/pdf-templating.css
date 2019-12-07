@@ -1,0 +1,107 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.content-header {
+    margin-top:10px;
+    width: 100%;
+}
+
+td.highlighted {
+    font-weight: bold;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+
+.main-header {
+    text-align: center;
+}
+
+.navigation-content {
+    margin-top: 15px;
+    margin-bottom: 50px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.pdf-table {
+ width: 90%;
+ margin: 0 auto;
+ margin-bottom:60px;
+ border:1px dotted silver;
+}
+.table-content {
+    color: #4286f4;
+    text-align: center;
+}
+
+table {
+    margin:center;
+}
+ul {
+    list-style-type: none;
+}
+
+.main-list {
+    text-align: left;
+}
+
+.service-name {
+    text-decoration: underline;
+}
+
+.service-list,
+.service-header {
+    /* margin-left: 50px; */
+}
+
+.service-list {
+    margin-top: 0;
+}
+
+.service-header,
+.service-header-name {
+    font-size: 1.5em;
+}
+
+.service-list-element {
+    padding-top: 5px;
+}
+
+.sub-service-header-name {
+    color: #ff0000;
+    text-align: left;
+    margin-top: 20px;
+}
+.service-header-name {
+    color: #ff0000;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.service-elements-list>li {
+    padding-top: 15px;
+}
+
+td {
+    text-align: left;
+    width:50%;
+}
+
+td.highlighted {
+    text-align: right;
+}
+.pdf_hr {
+    margin-bottom:5px;
+    border: 1px dashed red;
+}
