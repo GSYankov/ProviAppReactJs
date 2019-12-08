@@ -28,13 +28,13 @@ class Login extends Component {
 
                 <form method="POST" action="/account/login">
                     <div className="form-group">
-                        <label for="exampleInputEmail1">Your user account in NA domain</label>
+                        <label htmlFor="exampleInputEmail1">Your user account in NA domain</label>
                         {/*<!-- <input type="email" className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" -->*/}
                         <input class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
                             placeholder="Your user account in NA domain" autofocus onChange={this.emailChangeHandler}/>
                     </div>
                     <div className="form-group">
-                        <label for="password">Password</label>
+                        <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" id="password" name="password" placeholder="Password" onChange={this.passwordChangeHandler} />
                     </div>
                     <div className="text-center">
