@@ -2,11 +2,8 @@ const postService = {
     obtainCsrf: function (url) {
         let hostAddress = 'http://localhost:8000';
         return fetch(`${hostAddress}${url}`, {
-            headers : { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'},
             credentials: 'include'
-        });
+        }).then((res) => res.text());
     },
     loadAwsHome: function (app) {
         let hostAddress = 'http://localhost:8000'
@@ -14,16 +11,22 @@ const postService = {
             credentials: 'include'
         }).then((res) => res.json());
     },
-    submitAwsApp: function (data) {
-        debugger;
+    submitAwsApp: function (data, csrf) {
+
         const formData = new FormData();
-        formData.append('email', data.email);
-        formData.append('password', data.password);
+        for ( var key in data ) {
+            formData.append(key, data[key]);
+            debugger;
+        }
 
         let hostAddress = 'http://localhost:8000'
         return fetch(`${hostAddress}/api/aws/application/`, {
             method: "POST",
-            credentials: 'include'
+            headers: {
+                'X-CSRFToken': `${csrf}`
+              },
+            credentials: 'include',
+            body: formData
         }).then((res) => res.json());
     }
 };

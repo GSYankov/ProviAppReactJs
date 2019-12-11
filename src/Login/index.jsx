@@ -9,7 +9,11 @@ class Login extends Component {
 
     emailChangeHandler = this.props.controlChangeHandlerFactory('email');
     passwordChangeHandler = this.props.controlChangeHandlerFactory('password');
-  
+
+    componentWillMount() {
+        this.props.getCsrf('/account/login');
+    }
+
     submitHandler = () => {
       const errors = this.props.getFormErrorState();
       if (!!errors) { return; }

@@ -5,6 +5,7 @@ import postService from '../../../services/post-service';
 
 const Create = (props) => {
     const { match: { params } } = props;
+   // const csrftoken = props.parseCookeis()['csrftoken'];
     const [uid, setUid] = useState('');
     const [code, setCode] = useState('');
     const [name, setName] = useState('');
@@ -24,50 +25,24 @@ const Create = (props) => {
     const [drTier, setDrTier] = useState('default');
     const [msp, setMsp] = useState('default');
     const [unit, setUnit] = useState('default');
-    const [data, setData] = useState('default');
+
+    const [csrf, setCsrf] = useState(props.cookies['csrftoken']);
+    const [data, setData] = useState({});
+
 
     useEffect(() => {
         postService.obtainCsrf('/aws/new/ko')
-        .then(res=>res.text())
-        .then(data=>console.log(data.search('csrfmiddlewaretoken')));
-        // fetch('http://localhost:8000/aws/new/ko', {
-        //     headers : { 
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json'},
-        //     credentials: 'include'
-        // })
+        .then((res)=>console.log(props));
     }, []);
 
     function submitNewApp() {
+        console.log(csrf)
         const data = {
-            'organization': 'KO',
-            'uid': 'UID000014783470',
-            'name': 'UID000014783470-dev-US-us-east-1',
-            'code': 'qwe',
-            'description': 'sdfdsf',
-            'cost_center': 'werwer',
-            'account_id': '215771694765',
-            'account_profile': '008735_CloudHub_US_Admin',
-            'global_region': 'US',
-            'aws_region': 'us-east-1',
-            'env': 'dev',
-            'app_owner_email': 'asdasd@coca-cola.com',
-            'app_comments': '123213123',
-            'tag_managed_service_tier': '2',
-            'tag_security_tier': '2',
-            'tag_dr_class': '3',
-            'tag_infra_msp': 'Network Operations',
-            'tag_business_unit': 'Field-NA',
-            'vpc_id': 'vpc-08c3dd6c',
-            'vpc_name': 'ServicesVPC',
-            'mediaS3': 'ko-software-media-share-virginia',
-            'appDataS3': 'ko-application-file-dropbox-us-east-cloudhub',
-            'mspKeypair': '2ndWatch_008735_CloudHub_US_MSP_US_East_1',
-            'autoparkS3': 'autopark-configbucket-us-20170706',
-            'remote_state_profile': '008735_CloudHub_US_Admin',
+         
         }
-
-        postService.submitAwsApp(data).then(console.log('hi'));
+        console.log(csrf);
+        debugger;
+        postService.submitAwsApp(data, csrf).then(console.log('hi'));
     }
 
 

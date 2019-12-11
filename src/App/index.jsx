@@ -13,6 +13,7 @@ import AwsHome from '../AwsHome/'
 import SelectOrg from '../AwsHome/Apps/SelectOrg'
 import Create from '../AwsHome/Apps/Create'
 import userService from '../services/user-service';
+import postService from '../services/post-service';
 
 
 function render(title, Cmp, otherProps) {
@@ -35,11 +36,21 @@ class App extends React.Component {
     super(props);
     const cookies = parseCookeis();
     const isLogged = !!cookies['sessionid'];
+    this.state = { cookies };
     this.state = { isLogged };
   }
 
+  componentWillMount(){
+    this.setState({cookies: parseCookeis()})
+  }
+
+  getCsrf = (url) => {
+    postService.obtainCsrf(url).then(() => this.setState({ cookies: parseCookeis() }));
+  };
+
   login = (history, data) => {
-    userService.login(data).then(() => {
+    let csrf = this.state.cookies['csrftoken'];
+    userService.login(data, csrf).then(() => {
       this.setState({ isLogged: true });
       history.push('/');
     });
@@ -54,19 +65,20 @@ class App extends React.Component {
   }
 
   render() {
+    const { cookies } = this.state;
     const { isLogged } = this.state;
 
     return (
       <Router>
         <Navigation isLogged={isLogged} />
         <Switch>
-          <Route path='/' exact render={render('Welcome to', Welcome, {isLogged})} />
-          <Route path='/account/login' render={render('Login', Login, { isLogged, login: this.login })} />
+          <Route path='/' exact render={render('Welcome to', Welcome, { isLogged })} />
+          <Route path='/account/login' render={render('Login', Login, { isLogged, login: this.login, getCsrf: this.getCsrf, cookies })} />
           {isLogged && <Route path="/account/logout" render={render('Logout', Logout, { isLogged, logout: this.logout })} />}
           <Route path='/account/signup' render={render('Sign Up', SignUp)} />
-          <Route path='/aws/home' render={render('AWS', AwsHome)} />
-          <Route path='/aws/select-organization' exact render={render('Select Organization', SelectOrg)} />
-          <Route path='/aws/new/:org' exact render={render('Create application', Create)} />
+          {isLogged && <Route path='/aws/home' render={render('AWS', AwsHome)} />}
+          {isLogged && <Route path='/aws/select-organization' exact render={render('Select Organization', SelectOrg)} />}
+          {isLogged && <Route path='/aws/new/:org' exact render={render('Create application', Create, { isLogged, getCsrf: this.getCsrf, cookies })} />}
 
           {/*404 Page Not Found. Keep always last*/}
           <Route render={render('Page Not Found!', NotFound)} />
