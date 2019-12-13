@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import postService from '../../../services/post-service';
+import InputField from '../../../shared/fields/input'
 
 
 const Create = (props) => {
     const { match: { params } } = props;
-   // const csrftoken = props.parseCookeis()['csrftoken'];
+    // const csrftoken = props.parseCookeis()['csrftoken'];
     const [uid, setUid] = useState('');
     const [code, setCode] = useState('');
     const [name, setName] = useState('');
@@ -25,6 +26,7 @@ const Create = (props) => {
     const [drTier, setDrTier] = useState('default');
     const [msp, setMsp] = useState('default');
     const [unit, setUnit] = useState('default');
+    const [errors, setErrors] = useState({});
 
     const [csrf, setCsrf] = useState(props.cookies['csrftoken']);
     const [data, setData] = useState({});
@@ -32,13 +34,13 @@ const Create = (props) => {
 
     useEffect(() => {
         postService.obtainCsrf('/aws/new/ko')
-        .then((res)=>console.log(props));
+            .then();
     }, []);
 
     function submitNewApp() {
         console.log(csrf)
         const data = {
-         
+
         }
         console.log(csrf);
         debugger;
@@ -52,42 +54,41 @@ const Create = (props) => {
             <h4 className="general-headers">Register Application for KO</h4>
 
             <div className="container">
-
                 <div id="message-field" className="alert hidden page-messages" role="alert"></div>
                 <div id="mainSection">
-                    <div className="" id="row_app_uid">
-                        <div className="row">
-                            <div className="col-11">
-                                <div className="form-group">
-                                    <label>Application UID</label>
-                                    <label id="app_uid_i"><div tabIndex="0" className="fa fa-info-circle popover-info" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="Application Unique ID in CCSN. Instructions for creating a new UID can be found on InfoMix here: <br></div> <a href=&quot;https://wiki.coke.com/confluence/pages/viewpage.action?pageId=59081818&amp;preview=%2F59081818%2F59084331%2FCI+Process.docx&quot; target=&quot;_blank&quot;>https://wiki.coke.com/confluence/pages/viewpage.action?pageId=59081818&amp;preview=%2F59081818%2F59084331%2FCI+Process.docx</a>" data-original-title="" title=""></div></label>
-                                    <input className="form-control text-center" id="app_uid" type="input" placeholder="Example: UID000014783479" value={uid} onChange={(e) => setUid(e.target.value)} />
-                                    <div id="app_uid_feedback" className="invalid-feedback">Start with "UID" followed by 12 numbers. Example: UID000014783479, uid000014783479</div>
-                                    <div id="app_uid_superuser" className="text-danger hidden"></div>
-                                </div>
-                            </div>
-                            <div className="col-1">
-                                <label id="app_uid_dependency" data-reset="depfield" className="hidden"></label>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="" id="row_app_code">
-                        <div className="row">
-                            <div className="col-11">
-                                <div className="form-group">
-                                    <label>Application Code</label>
-                                    <label id="app_code_i"><div tabIndex="0" className="fa fa-info-circle popover-info" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="For generation of AppCode, please send e-mail to cloud@ko.com with Application UID and Application Name. <br></div> <a href=&quot;&quot; target=&quot;_blank&quot;></a>" data-original-title="" title=""></div></label>
-                                    <input className="form-control text-center" id="app_code" type="input" placeholder="Example: aio" value={code} onChange={(e) => setCode(e.target.value)} />
-                                    <div id="app_code_feedback" className="invalid-feedback">Example: "aio". Please use lowercase characters only! Max characters: 3</div>
-                                    <div id="app_code_superuser" className="text-danger hidden"></div>
-                                </div>
-                            </div>
-                            <div className="col-1">
-                                <label id="app_code_dependency" data-reset="depfield" className="hidden"></label>
-                            </div>
-                        </div>
-                    </div>
+                    <InputField
+                        label={'Application UID'}
+                        placeholder={'Example: UID000014783479'}
+                        value={uid}
+                        stateHook={setUid}
+                        errorMessage={'Start with "UID" followed by 12 numbers. Example: UID000014783479, uid000014783479'}
+                        errors={errors}
+                        setErrors={setErrors}
+                        validator={/^(uid|UID)[0-9]{12}$/}
+                    ></InputField>
+
+                    <InputField
+                        label={'Application Code'}
+                        placeholder={'Example: aio'}
+                        value={code}
+                        stateHook={setCode}
+                        errorMessage={'Example: "aio". Please use 3 lowercase characters only!'}
+                        errors={errors}
+                        setErrors={setErrors}
+                        validator={/^[a-z]{3}$/}
+                    ></InputField>
+
+                    <InputField
+                        label={'Application Friendly Name'}
+                        placeholder={'Example: CCNA AIOps'}
+                        value={name}
+                        stateHook={setName}
+                        errorMessage={'Example: "CCNA AIOps". Please use alphabet characters and numbers from 3 to 20 symbols'}
+                        errors={errors}
+                        setErrors={setErrors}
+                        validator={/^[adfsdfdfsdffgfghgh-z]{3}$/}
+                    ></InputField>
 
                     <div className="" id="row_app_description">
                         <div className="row">

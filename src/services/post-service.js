@@ -16,7 +16,6 @@ const postService = {
         const formData = new FormData();
         for ( var key in data ) {
             formData.append(key, data[key]);
-            debugger;
         }
 
         let hostAddress = 'http://localhost:8000'
