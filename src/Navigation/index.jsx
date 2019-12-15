@@ -33,7 +33,7 @@ class Navigation extends React.Component {
                     </React.Fragment>)}
 
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Contacts</a>
+                        <a className="nav-link" href="/contacts">Contacts</a>
                     </li>
 
                     {/*<!-- <li className="nav-item">
