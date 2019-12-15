@@ -12,10 +12,13 @@ const userService = {
             credentials: 'include'
         }).then(res => res.text());
     },
-    logout: function () {
+    logout: function (csrf) {
         return fetch(`http://localhost:8000/account/logout`, {
           method: 'POST',
-          credentials: 'include'
+          credentials: 'include',
+          headers: {
+            'X-CSRFToken': `${csrf}`
+          },
         }).then(res => res.text());
       }
 }

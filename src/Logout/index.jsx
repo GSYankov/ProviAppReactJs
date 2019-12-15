@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Logout({ logout, history }) {
-  logout(history);
+function Logout({ logout, history, cookies }) {
+  logout(cookies['csrftoken'],history);
   return null;
 }
 

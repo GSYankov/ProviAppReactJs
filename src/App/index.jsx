@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import styles from './styles.module.css';
 import Main from '../Main';
 import Welcome from '../Welcome';
@@ -56,8 +56,8 @@ class App extends React.Component {
     });
   }
 
-  logout = (history) => {
-    userService.logout().then(() => {
+  logout = (csrf, history) => {
+    userService.logout(csrf).then(() => {
       this.setState({ isLogged: false });
       history.push('/');
       return null;
@@ -74,11 +74,16 @@ class App extends React.Component {
         <Switch>
           <Route path='/' exact render={render('Welcome to', Welcome, { isLogged })} />
           <Route path='/account/login' render={render('Login', Login, { isLogged, login: this.login, getCsrf: this.getCsrf, cookies })} />
-          {isLogged && <Route path="/account/logout" render={render('Logout', Logout, { isLogged, logout: this.logout })} />}
+          {/* {isLogged && <Route path="/account/logout" render={render('Logout', Logout, { isLogged, logout: this.logout, cookies })} />} */}
+          <Route path="/account/logout" render={isLogged ? render('Logout', Logout, { isLogged, logout: this.logout }) : () => <Redirect to="/" />} />
           <Route path='/account/signup' render={render('Sign Up', SignUp)} />
-          {isLogged && <Route path='/aws/home' render={render('AWS', AwsHome)} />}
+          
+          <Route path='/aws/home' render={isLogged ? render('AWS', AwsHome) : () => <Redirect to="/" /> } />
+          <Route path='/aws/select-organization' exact render={isLogged ? render('Select Organization', SelectOrg) : () => <Redirect to="/" />} />
+          <Route path='/aws/new/:org' exact render={isLogged ? render('Create application', Create, { isLogged, getCsrf: this.getCsrf, cookies }): () => <Redirect to="/" />} /> />
+          {/* {isLogged && <Route path='/aws/home' render={render('AWS', AwsHome)} />}
           {isLogged && <Route path='/aws/select-organization' exact render={render('Select Organization', SelectOrg)} />}
-          {isLogged && <Route path='/aws/new/:org' exact render={render('Create application', Create, { isLogged, getCsrf: this.getCsrf, cookies })} />}
+          {isLogged && <Route path='/aws/new/:org' exact render={render('Create application', Create, { isLogged, getCsrf: this.getCsrf, cookies })} />} */}
 
           {/*404 Page Not Found. Keep always last*/}
           <Route render={render('Page Not Found!', NotFound)} />
