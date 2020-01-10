@@ -6,7 +6,7 @@ import Welcome from '../Welcome';
 import Navigation from '../Navigation';
 import Footer from '../Footer';
 import SignUp from '../SignUp';
-import Contacts from '../Contacts';
+// import Contacts from '../Contacts';
 import Login from '../Login';
 import Logout from '../Logout';
 import NotFound from '../NotFound';
@@ -76,9 +76,9 @@ class App extends React.Component {
           <Route path='/' exact render={render('Welcome to', Welcome, { isLogged })} />
           <Route path='/account/login' render={render('Login', Login, { isLogged, login: this.login, getCsrf: this.getCsrf, cookies })} />
           {/* {isLogged && <Route path="/account/logout" render={render('Logout', Logout, { isLogged, logout: this.logout, cookies })} />} */}
-          <Route path="/account/logout" render={isLogged ? render('Logout', Logout, { isLogged, logout: this.logout }) : () => <Redirect to="/" />} />
+          <Route path="/account/logout" render={isLogged ? render('Logout', Logout, { isLogged, logout: this.logout, cookies}) : () => <Redirect to="/" />} />
           <Route path='/account/signup' render={render('Sign Up', SignUp)} />
-          <Route path='/contacts' render={render('Contacts', Contacts)} />
+          {/* <Route path='/contacts' render={render('Contacts', Contacts)} /> */}
           
           <Route path='/aws/home' render={isLogged ? render('AWS', AwsHome) : () => <Redirect to="/" /> } />
           <Route path='/aws/select-organization' exact render={isLogged ? render('Select Organization', SelectOrg) : () => <Redirect to="/" />} />

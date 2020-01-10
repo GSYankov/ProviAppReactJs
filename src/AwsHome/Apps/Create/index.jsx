@@ -69,9 +69,8 @@ const Create = (props) => {
             "remote_state_region":'234',
             "remote_state_bucket":'2343456'
         }
-        console.log(csrf);
-        debugger;
-        postService.submitAwsApp(data, csrf).then(console.log('hi'));
+
+        postService.submitAwsApp(data, csrf).then(window.location.href = 'http://localhost:3000/aws/home');
     }
 
 
